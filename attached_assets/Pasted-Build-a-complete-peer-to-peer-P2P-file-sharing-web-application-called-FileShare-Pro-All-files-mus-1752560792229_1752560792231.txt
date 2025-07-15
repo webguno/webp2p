@@ -1,0 +1,92 @@
+Build a complete peer-to-peer (P2P) file sharing web application called FileShare Pro. All files must be placed in a single directory (no subfolders). The app should support create room, join room, upload, download, and real-time file sharing.
+
+🖥️ Frontend
+Use React 18 + TypeScript
+
+Use Tailwind CSS (inlined via CDN or single CSS file)
+
+Use shadcn/ui components (no component splitting, write everything in one file)
+
+Use Wouter for routing
+
+Use TanStack React Query
+
+Build with Vite but output should be editable in one HTML file (if possible)
+
+Include QR code generator logic in the same file
+
+UI Components:
+
+Welcome UI with "Create Room" and "Join Room" buttons
+
+Single component to handle both room creation & file upload
+
+Show QR code (base64 inline)
+
+Upload area (file input + status updates)
+
+Download list for users in the same room
+
+🔧 Backend
+Use Express.js + TypeScript
+
+Use WebSocket (ws) for real-time connection (in same file)
+
+Use Multer to handle multipart/form-data file uploads
+
+Use PostgreSQL for persistence with Drizzle ORM
+
+Define tables using Drizzle:
+
+rooms – unique room codes
+
+connections – connected clients
+
+fileTransfers – metadata about uploaded files
+
+All code should be in one server.ts file, with comments and modules written inline.
+
+📁 File Handling
+Store files in uploads/ folder, but define upload logic in same backend file
+
+Serve uploaded files through Express endpoints
+
+Broadcast available files via WebSocket
+
+🔄 WebSocket Features
+Handle:
+
+Room creation
+
+Join room
+
+Device connection status
+
+File list updates
+
+Include reconnect logic in frontend
+
+🧠 Smart Features
+Generate QR code inline (use qrcode npm library or inline logic)
+
+Detect local IP using WebRTC in frontend
+
+Notify all users when a file is uploaded (via socket)
+
+📦 Deployment & Build
+All code in one directory
+
+Frontend entry: index.html, main.tsx, style.css — but can be merged if needed
+
+Backend entry: server.ts — with WebSocket, Express routes, and DB code inline
+
+.env config inline at the top of server code
+
+Build with vite build (if needed) but keep source editable without any folders
+
+⚙️ Required Libraries
+express, ws, multer, drizzle-orm, @tanstack/react-query, tailwindcss, vite, wouter, qrcode, pg, dotenv, tsx
+
+➕ Bonus: Add PWA manifest and service worker inline if possible.
+
+✅ Ensure the app works with just one folder, with all code in one place and no subdirectories.

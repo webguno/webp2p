@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>FileShare Pro - Secure P2P File Sharing</title>
+    <meta name="description" content="FileShare Pro - Secure peer-to-peer file sharing application. Create rooms, share files instantly with real-time collaboration features." />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FileShare Pro" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="FileShare Pro - Secure P2P File Sharing" />
+    <meta property="og:description" content="Share files instantly with secure peer-to-peer technology. Create rooms and collaborate in real-time." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233B82F6'><path d='M16 5l-4 4-4-4v10l4-4 4 4V5z'/></svg>" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;FileShare Pro&quot;,&quot;short_name&quot;:&quot;FileShare&quot;,&quot;description&quot;:&quot;Secure P2P file sharing&quot;,&quot;start_url&quot;:&quot;/&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#ffffff&quot;,&quot;theme_color&quot;:&quot;#3B82F6&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233B82F6'%3E%3Cpath d='M16 5l-4 4-4-4v10l4-4 4 4V5z'/%3E%3C/svg%3E&quot;,&quot;sizes&quot;:&quot;192x192&quot;,&quot;type&quot;:&quot;image/svg+xml&quot;}]}" />
+    
+    <style>
+      /* Loading styles */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .loading-content {
+        text-align: center;
+        color: white;
+      }
+      
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 16px auto;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide loading screen once React loads */
+      #root:not(:empty) + .loading-screen {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Loading screen shown until React loads -->
+    <div class="loading-screen">
+      <div class="loading-content">
+        <div class="spinner"></div>
+        <h2 style="font-size: 24px; font-weight: 600; margin: 0 0 8px 0;">FileShare Pro</h2>
+        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Loading secure file sharing...</p>
+      </div>
+    </div>
+    
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Service Worker for PWA functionality -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register(
+          'data:application/javascript,const CACHE_NAME="fileshare-v1";const urlsToCache=["/","src/main.tsx"];self.addEventListener("install",event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(urlsToCache)))});self.addEventListener("fetch",event=>{event.respondWith(caches.match(event.request).then(response=>{if(response){return response}return fetch(event.request)}))});'
+        ).then(() => {
+          console.log('Service Worker registered successfully');
+        }).catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+      }
+    </script>
+    
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+  </body>
+</html>
